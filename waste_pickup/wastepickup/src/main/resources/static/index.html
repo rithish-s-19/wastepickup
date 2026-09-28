@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WastePickup | Collection Management</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-outer-wrapper">
+        <div class="app-container">
+
+            <!-- ================= PRIMARY NAVIGATION ================= -->
+            <aside class="icon-rail">
+                <div class="rail-brand">
+                    <div class="brand-logo" title="WastePickup">WP</div>
+                </div>
+
+                <button class="rail-action-btn" title="Quick Create" onclick="openCreateModal()">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="12" y1="5" x2="12" y2="19"></line>
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                    </svg>
+                </button>
+
+                <nav class="rail-nav">
+                    <button class="rail-item active" onclick="showSection('reports', this)" title="Segregation Reports">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                    </button>
+                    <button class="rail-item" onclick="showSection('dashboard', this)" title="Operations Dashboard">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                        </svg>
+                    </button>
+                    <button class="rail-item" onclick="showSection('zones', this)" title="Zones">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                            <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                        </svg>
+                    </button>
+                    <button class="rail-item" onclick="showSection('households', this)" title="Households">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14 2 14 8 20 8"></polyline>
+                        </svg>
+                    </button>
+                    <button class="rail-item" onclick="showSection('schedules', this)" title="Schedules">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                    </button>
+                    <button class="rail-item" onclick="showSection('pickups', this)" title="Pickup Logs">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
+                            <line x1="3" y1="9" x2="21" y2="9"></line>
+                            <line x1="9" y1="21" x2="9" y2="9"></line>
+                        </svg>
+                    </button>
+                </nav>
+            </aside>
+
+
+            <!-- ================= COLLECTION NAVIGATION ================= -->
+            <aside class="sub-sidebar">
+                <div class="sub-sidebar-header">
+                    <div class="header-title">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2.5">
+                            <line x1="18" y1="20" x2="18" y2="10"></line>
+                            <line x1="12" y1="20" x2="12" y2="4"></line>
+                            <line x1="6" y1="20" x2="6" y2="14"></line>
+                        </svg>
+                        <h2>WastePickup</h2>
+                    </div>
+                </div>
+
+                <div class="sub-nav-group">
+                    <div class="sub-nav-label">OVERVIEW</div>
+                    <button class="sub-nav-item nav-item active" onclick="showSection('reports', this)">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                        </svg>
+                        <span>Segregation Reports</span>
+                    </button>
+                    <button class="sub-nav-item nav-item" onclick="showSection('dashboard', this)">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="3" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="3" width="7" height="7"></rect>
+                            <rect x="14" y="14" width="7" height="7"></rect>
+                            <rect x="3" y="14" width="7" height="7"></rect>
+                        </svg>
+                        <span>Operations Dashboard</span>
+                    </button>
+                </div>
+
+                <div class="sub-nav-group">
+                    <div class="sub-nav-label collapsible" onclick="toggleNavGroup(this)">
+                        <span>COLLECTION OPERATIONS</span>
+                        <svg class="chevron rotate-up" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </div>
+                    <div class="group-children">
+                        <button class="sub-nav-item nav-item" onclick="showSection('pickups', this)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                <circle cx="8.5" cy="7" r="4"></circle>
+                                <polyline points="17 11 19 13 23 9"></polyline>
+                            </svg>
+                            <span>Pickup Logs</span>
+                        </button>
+                        <button class="sub-nav-item nav-item" onclick="showSection('pickupCreate', this)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <span>Add Pickup Log</span>
+                        </button>
+                        <button class="sub-nav-item nav-item" onclick="showSection('zones', this)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="3" width="18" height="18" rx="2"></rect>
+                                <path d="M3 9h18"></path>
+                                <path d="M9 21V9"></path>
+                            </svg>
+                            <span>Collection Zones</span>
+                        </button>
+                        <button class="sub-nav-item nav-item" onclick="showSection('schedules', this)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            <span>Collection Schedules</span>
+                        </button>
+                        <button class="sub-nav-item nav-item" onclick="showSection('scheduleCreate', this)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <span>Add Schedule</span>
+                        </button>
+                        <button class="create-report-btn" onclick="openCreateModal()">
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <span>Quick Create</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sub-nav-group">
+                    <div class="sub-nav-label collapsible" onclick="toggleNavGroup(this)">
+                        <span>HOUSEHOLDS</span>
+                        <svg class="chevron rotate-up" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <polyline points="18 15 12 9 6 15"></polyline>
+                        </svg>
+                    </div>
+                    <div class="group-children">
+                        <button class="sub-nav-item nav-item" onclick="showSection('householdCreate', this)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19"></line>
+                                <line x1="5" y1="12" x2="19" y2="12"></line>
+                            </svg>
+                            <span>Add Household</span>
+                        </button>
+                        <button class="sub-nav-item nav-item" onclick="showSection('households', this)">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path>
+                            </svg>
+                            <span>Household Records</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="sub-sidebar-footer">
+                    <div class="system-badge">
+                        <span class="status-indicator"></span>
+                        <div class="status-info">
+                            <strong>System Online</strong>
+                            <small>API Connected</small>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+
+
+            <!-- ================= MAIN VIEWPORT ================= -->
+            <main class="main-viewport">
+                <!-- TOP UTILITY BAR -->
+                <header class="utility-bar">
+                    <div class="breadcrumb-container">
+                        <span class="breadcrumb-root">WastePickup</span>
+                        <span class="breadcrumb-sep">/</span>
+                        <span class="breadcrumb-current" id="currentPage">Segregation Reports</span>
+                    </div>
+
+                    <div class="utility-right">
+                        <div class="server-badge">
+                            <span class="status-indicator"></span>
+                            <span>API Online</span>
+                        </div>
+
+                        <div class="user-profile">
+                            <div class="avatar">A</div>
+                            <div class="user-info">
+                                <strong class="user-name">Administrator</strong>
+                                <small class="user-role">System Admin</small>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+
+                <!-- DYNAMIC CONTENT SECTIONS -->
+                <div class="content-scrollable">
+
+                    <!-- ================= SECTION: SEGREGATION REPORTS ================= -->
+                    <section id="reports" class="page-section active-section">
+                        <div class="page-header">
+                            <h1 id="pageTitle">Segregation Reports</h1>
+                            <p class="page-description">Review the average segregation score recorded for a collection zone.</p>
+                        </div>
+
+                        <div class="card-panel">
+                            <div class="card-header-clean">
+                                <h3>Zone Performance</h3>
+                                <p>Calculate the average score from pickup records for the selected zone.</p>
+                            </div>
+                            <div class="inline-form-row">
+                                <div class="input-field-group">
+                                    <label for="reportZoneId">Zone ID</label>
+                                    <input type="number" id="reportZoneId" class="panda-input" min="1" placeholder="Enter a collection zone ID">
+                                </div>
+                                <button class="panda-btn-primary" onclick="loadZoneAverage()">Generate Report</button>
+                            </div>
+                            <div id="reportResult" class="report-result-card">
+                                <span class="placeholder-text">Enter a zone ID to view its average segregation score.</span>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- ================= SECTION: DASHBOARD ================= -->
+                    <section id="dashboard" class="page-section">
+                        <div class="page-header flex-split">
+                            <div>
+                                <h1>Operations Dashboard</h1>
+                                <p class="page-description">Monitor waste collection activity and segregation performance across all zones.</p>
+                            </div>
+                            <button class="panda-btn-secondary" onclick="loadDashboard()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                                <span>Refresh Data</span>
+                            </button>
+                        </div>
+
+                        <!-- 4 STAT CARDS -->
+                        <div class="statistics">
+                            <div class="stat-card">
+                                <div class="stat-heading">
+                                    <span>Total Zones</span>
+                                    <span class="stat-icon">Z</span>
+                                </div>
+                                <strong id="dashboardZoneCount">0</strong>
+                                <small>Registered collection zones</small>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-heading">
+                                    <span>Households</span>
+                                    <span class="stat-icon">H</span>
+                                </div>
+                                <strong id="dashboardHouseholdCount">—</strong>
+                                <small>Registered households</small>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-heading">
+                                    <span>Segregation Score</span>
+                                    <span class="stat-icon">S</span>
+                                </div>
+                                <strong id="dashboardAverage">—</strong>
+                                <small>Current zone average</small>
+                            </div>
+
+                            <div class="stat-card">
+                                <div class="stat-heading">
+                                    <span>Minimum Score</span>
+                                    <span class="stat-icon">M</span>
+                                </div>
+                                <strong>50</strong>
+                                <small>Flagging threshold</small>
+                            </div>
+                        </div>
+
+                        <div class="dashboard-grid">
+                            <div class="card-panel">
+                                <div class="card-header-clean flex-split">
+                                    <div>
+                                        <h3>Collection Zones</h3>
+                                        <p>Recently registered collection zones</p>
+                                    </div>
+                                    <button class="text-button" onclick="showSectionById('zones')">View all →</button>
+                                </div>
+                                <div id="dashboardZones">
+                                    <div class="loading">Loading zones...</div>
+                                </div>
+                            </div>
+
+                            <div class="card-panel">
+                                <div class="card-header-clean">
+                                    <h3>System Information</h3>
+                                    <p>Current application configuration</p>
+                                </div>
+                                <div class="information-list">
+                                    <div><span>Backend</span><strong>Spring Boot</strong></div>
+                                    <div><span>Database</span><strong>MySQL</strong></div>
+                                    <div><span>ORM</span><strong>JPA / Hibernate</strong></div>
+                                    <div><span>API</span><strong>REST</strong></div>
+                                    <div><span>Port</span><strong>8080</strong></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- ================= SECTION: ZONES ================= -->
+                    <section id="zones" class="page-section">
+                        <div class="page-header">
+                            <h1>Collection Zones</h1>
+                            <p class="page-description">Manage geographical zones used for waste collection.</p>
+                        </div>
+
+                        <div class="card-panel">
+                            <div class="card-header-clean">
+                                <h3>Add Zone</h3>
+                                <p>Register a new collection zone.</p>
+                            </div>
+                            <div class="inline-form-row">
+                                <div class="input-field-group">
+                                    <label for="zoneName">Zone Name</label>
+                                    <input type="text" id="zoneName" class="panda-input" placeholder="Example: Zone A">
+                                </div>
+                                <button class="panda-btn-primary" onclick="addZone()">Add Zone</button>
+                            </div>
+                            <div id="zoneMessage" class="message"></div>
+                        </div>
+
+                        <div class="card-panel margin-top-20">
+                            <div class="card-header-clean flex-split">
+                                <div>
+                                    <h3>Registered Zones</h3>
+                                    <p>All zones currently stored in the system.</p>
+                                </div>
+                                <button class="panda-btn-secondary" onclick="loadZones()">Refresh</button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Zone Name</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="zonesTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- ================= SECTION: ADD HOUSEHOLD ================= -->
+                    <section id="householdCreate" class="page-section">
+                        <div class="page-header">
+                            <h1>Add Household</h1>
+                            <p class="page-description">Register a household under its collection zone.</p>
+                        </div>
+
+                        <div class="card-panel">
+                            <div class="card-header-clean flex-split">
+                                <div>
+                                    <h3>Household Details</h3>
+                                    <p>Name, address, and collection zone are required.</p>
+                                </div>
+                                <button class="panda-btn-secondary" type="button" onclick="showSectionById('households')">View Household Records</button>
+                            </div>
+                            <form id="householdCreateForm" class="inline-form-row" onsubmit="event.preventDefault(); addHousehold()">
+                                <div class="input-field-group">
+                                    <label for="newHouseholdName">Household Name</label>
+                                    <input type="text" id="newHouseholdName" class="panda-input" placeholder="Example: Smith Family" autocomplete="name" required>
+                                </div>
+                                <div class="input-field-group">
+                                    <label for="newHouseholdAddress">Address</label>
+                                    <input type="text" id="newHouseholdAddress" class="panda-input" placeholder="Street address" autocomplete="street-address" required>
+                                </div>
+                                <div class="input-field-group">
+                                    <label for="newHouseholdZone">Collection Zone</label>
+                                    <select id="newHouseholdZone" class="panda-input" required>
+                                        <option value="">Loading zones...</option>
+                                    </select>
+                                </div>
+                                <button class="panda-btn-primary" type="submit">Add Household</button>
+                            </form>
+                            <div id="householdZoneSetup" class="message" hidden>
+                                <span id="householdZoneSetupText"></span>
+                                <button id="householdZoneAction" class="text-button" type="button"></button>
+                            </div>
+                            <div id="householdMessage" class="message" role="status" aria-live="polite"></div>
+                        </div>
+                    </section>
+
+                    <!-- ================= SECTION: HOUSEHOLD RECORDS ================= -->
+                    <section id="households" class="page-section">
+                        <div class="page-header flex-split">
+                            <div>
+                                <h1>Household Records</h1>
+                                <p class="page-description">All registered households and their assigned collection zones.</p>
+                            </div>
+                            <button class="panda-btn-primary" type="button" onclick="showSectionById('householdCreate')">Add Household</button>
+                        </div>
+
+                        <div class="card-panel margin-top-20">
+                            <div class="card-header-clean flex-split">
+                                <div>
+                                    <h3>Registered Households</h3>
+                                    <p>Filter by zone or view every household.</p>
+                                </div>
+                                <button class="panda-btn-secondary" type="button" onclick="loadHouseholds()">Refresh</button>
+                            </div>
+                            <div class="inline-form-row">
+                                <div class="input-field-group">
+                                    <label for="householdFilterZoneId">Collection Zone</label>
+                                    <select id="householdFilterZoneId" class="panda-input" onchange="loadHouseholds()">
+                                        <option value="">All zones</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Name</th>
+                                            <th>Address</th>
+                                            <th>Zone</th>
+                                            <th>Status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="householdsTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+
+                    <!-- ================= SECTION: SCHEDULES ================= -->
+                    <section id="schedules" class="page-section">
+                        <div class="page-header flex-split">
+                            <div>
+                                <h1>Collection Schedules</h1>
+                                <p class="page-description">View saved pickup days and hours for a collection zone.</p>
+                            </div>
+                            <button class="panda-btn-primary" type="button" onclick="showSectionById('scheduleCreate')">Add Schedule</button>
+                        </div>
+
+                        <div class="card-panel">
+                            <div class="card-header-clean">
+                                <h3>Schedules by Zone</h3>
+                                <p>Select a zone to see its saved collection schedule.</p>
+                            </div>
+                            <div class="inline-form-row">
+                                <div class="input-field-group">
+                                    <label for="scheduleZoneId">Collection Zone</label>
+                                    <select id="scheduleZoneId" class="panda-input" onchange="loadSchedules()" required disabled>
+                                        <option value="">Loading zones...</option>
+                                    </select>
+                                </div>
+                                <button class="panda-btn-secondary" type="button" onclick="loadSchedules()">Refresh</button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Collection Day</th>
+                                            <th>Start Time</th>
+                                            <th>End Time</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="schedulesTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ================= SECTION: ADD SCHEDULE ================= -->
+                    <section id="scheduleCreate" class="page-section">
+                        <div class="page-header">
+                            <h1>Add Collection Schedule</h1>
+                            <p class="page-description">Set a collection day and pickup time window for a zone.</p>
+                        </div>
+
+                        <div class="card-panel">
+                            <div class="card-header-clean flex-split">
+                                <div>
+                                    <h3>Schedule Details</h3>
+                                    <p>End time must be later than start time.</p>
+                                </div>
+                                <button class="panda-btn-secondary" type="button" onclick="showSectionById('schedules')">View Collection Schedules</button>
+                            </div>
+                            <form id="scheduleCreateForm" class="inline-form-row" onsubmit="event.preventDefault(); addSchedule()">
+                                <div class="input-field-group">
+                                    <label for="scheduleCreateZoneId">Collection Zone</label>
+                                    <select id="scheduleCreateZoneId" class="panda-input" required disabled>
+                                        <option value="">Loading zones...</option>
+                                    </select>
+                                </div>
+                                <div class="input-field-group">
+                                    <label for="scheduleCollectionDay">Collection Day</label>
+                                    <select id="scheduleCollectionDay" class="panda-input" required>
+                                        <option value="">Select a day</option>
+                                        <option value="MONDAY">Monday</option>
+                                        <option value="TUESDAY">Tuesday</option>
+                                        <option value="WEDNESDAY">Wednesday</option>
+                                        <option value="THURSDAY">Thursday</option>
+                                        <option value="FRIDAY">Friday</option>
+                                        <option value="SATURDAY">Saturday</option>
+                                        <option value="SUNDAY">Sunday</option>
+                                    </select>
+                                </div>
+                                <div class="input-field-group">
+                                    <label for="scheduleStartTime">Start Time</label>
+                                    <input type="time" id="scheduleStartTime" class="panda-input" required>
+                                </div>
+                                <div class="input-field-group">
+                                    <label for="scheduleEndTime">End Time</label>
+                                    <input type="time" id="scheduleEndTime" class="panda-input" required>
+                                </div>
+                                <button class="panda-btn-primary" type="submit">Add Schedule</button>
+                            </form>
+                            <div id="scheduleZoneSetup" class="message" hidden>
+                                <span id="scheduleZoneSetupText"></span>
+                                <button id="scheduleZoneAction" class="text-button" type="button"></button>
+                            </div>
+                            <div id="scheduleMessage" class="message" role="status" aria-live="polite"></div>
+                        </div>
+                    </section>
+
+
+                    <!-- ================= SECTION: PICKUPS ================= -->
+                    <section id="pickups" class="page-section">
+                        <div class="page-header flex-split">
+                            <div>
+                                <h1>Pickup Logs</h1>
+                                <p class="page-description">All recorded pickups with household and collection zone details.</p>
+                            </div>
+                            <button class="panda-btn-primary" type="button" onclick="showSectionById('pickupCreate')">Add Pickup Log</button>
+                        </div>
+
+                        <div class="card-panel">
+                            <div class="card-header-clean flex-split">
+                                <div>
+                                    <h3>Recorded Pickups</h3>
+                                    <p>Leave the household ID blank to view every pickup log.</p>
+                                </div>
+                                <button class="panda-btn-secondary" type="button" onclick="loadPickups()">Show All</button>
+                            </div>
+                            <div class="inline-form-row">
+                                <div class="input-field-group">
+                                    <label for="pickupHouseholdId">Filter by Household ID</label>
+                                    <input type="number" id="pickupHouseholdId" class="panda-input" min="1" placeholder="Optional household ID">
+                                </div>
+                                <button class="panda-btn-secondary" type="button" onclick="loadPickups()">Filter</button>
+                            </div>
+                            <div class="table-wrapper">
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Household</th>
+                                            <th>Address</th>
+                                            <th>Zone</th>
+                                            <th>Pickup Time</th>
+                                            <th>Segregation Score</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="pickupsTable"></tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </section>
+
+                    <!-- ================= SECTION: ADD PICKUP LOG ================= -->
+                    <section id="pickupCreate" class="page-section">
+                        <div class="page-header">
+                            <h1>Add Pickup Log</h1>
+                            <p class="page-description">Record a household's segregation score during its zone's scheduled pickup window.</p>
+                        </div>
+
+                        <div class="card-panel">
+                            <div class="card-header-clean flex-split">
+                                <div>
+                                    <h3>Pickup Details</h3>
+                                    <p>Pickup time is recorded automatically. The score must be between 0 and 100.</p>
+                                </div>
+                                <button class="panda-btn-secondary" type="button" onclick="showSectionById('pickups')">View Pickup Logs</button>
+                            </div>
+                            <form id="pickupCreateForm" class="inline-form-row" onsubmit="event.preventDefault(); addPickupLog()">
+                                <div class="input-field-group">
+                                    <label for="pickupCreateHouseholdId">Household</label>
+                                    <select id="pickupCreateHouseholdId" class="panda-input" required disabled>
+                                        <option value="">Loading households...</option>
+                                    </select>
+                                </div>
+                                <div class="input-field-group">
+                                    <label for="pickupScore">Segregation Score</label>
+                                    <input type="number" id="pickupScore" class="panda-input" min="0" max="100" step="1" placeholder="0 to 100" required>
+                                </div>
+                                <button class="panda-btn-primary" type="submit">Save Pickup Log</button>
+                            </form>
+                            <div id="pickupCreateSetup" class="message" hidden>
+                                <span id="pickupCreateSetupText"></span>
+                                <button id="pickupCreateSetupAction" class="text-button" type="button"></button>
+                            </div>
+                            <div id="pickupCreateMessage" class="message" role="status" aria-live="polite"></div>
+                        </div>
+                    </section>
+
+                </div>
+            </main>
+        </div>
+    </div>
+
+
+    <!-- ================= CREATE MODAL ================= -->
+    <div id="createModal" class="modal-backdrop" onclick="closeCreateModal(event)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3>Quick Create</h3>
+                <button class="icon-btn-ghost" onclick="closeCreateModal()">✕</button>
+            </div>
+            <div class="modal-body">
+                <p>Choose what you want to add:</p>
+                <div class="modal-actions-list">
+                    <button class="modal-option-btn" onclick="closeCreateModal(); showSectionById('zones');">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#22c55e" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path></svg>
+                        <span>Add Collection Zone</span>
+                    </button>
+                    <button class="modal-option-btn" onclick="closeCreateModal(); showSectionById('householdCreate');">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M3 10.5 12 3l9 7.5"></path><path d="M5 9v12h14V9"></path><path d="M9 21v-7h6v7"></path></svg>
+                        <span>Register Household</span>
+                    </button>
+                    <button class="modal-option-btn" onclick="closeCreateModal(); showSectionById('scheduleCreate');">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"></rect><path d="M16 2v4M8 2v4M3 10h18"></path></svg>
+                        <span>Add Collection Schedule</span>
+                    </button>
+                    <button class="modal-option-btn" onclick="closeCreateModal(); showSectionById('pickupCreate');">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#3b82f6" stroke-width="2"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 7"></polyline></svg>
+                        <span>Add Pickup Log</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
